@@ -77,11 +77,15 @@ Import `backend/postman/Playlist-Sharing-Platform.postman_collection.json`. Run 
 
 ## Deploy
 
-Do this only when you have a MongoDB Atlas URI and hosting accounts.
+The site and the API are one Vercel project. `vercel.json` sends `/api` to the Express app and every other path to the Vite client, so the browser keeps calling `/api` on the same origin. Leave `VITE_API_URL` unset.
 
-1. Create an Atlas cluster and copy its connection string.
-2. Deploy `backend` on Render or Railway. Start command: `npm start`. Set `MONGO_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CLIENT_URL` (the frontend origin), and `PORT` if the host does not set it.
-3. Deploy `client` on Vercel or Netlify. Set `VITE_API_URL` to the live API origin with no trailing slash, then rebuild.
-4. Set the API `CLIENT_URL` to the deployed frontend origin so the browser is allowed to call it.
+Vercel cannot reach MongoDB on your laptop. Create a free MongoDB Atlas cluster, allow access from anywhere (`0.0.0.0/0`), and set these environment variables on the Vercel project:
+
+- `MONGO_URI`: the Atlas connection string
+- `JWT_SECRET`: a long random string
+- `JWT_EXPIRES_IN`: `7d`
+- `CLIENT_URL`: the Vercel site origin, with no trailing slash
+
+`/api/health` answers without a database. Register, login, playlists, likes, and comments stay unavailable until `MONGO_URI` points at Atlas.
 
 The React app only calls these REST endpoints. It does not calculate likes or store comments itself.
