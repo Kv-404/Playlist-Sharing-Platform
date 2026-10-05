@@ -75,9 +75,16 @@ Like responses look like `{ "liked": true, "likeCount": 1 }`. Liking again remov
 
 Import `backend/postman/Playlist-Sharing-Platform.postman_collection.json`. Run the requests from top to bottom with the API on port 4000. Login requests save `token` and `otherToken`. The listener's update and delete requests expect `403`.
 
+## Assignment documents
+
+The case-study report and the viva slides sit next to this folder, not inside the repository:
+
+- `../Playlist-Sharing-Platform-Report.docx`
+- `../Playlist-Sharing-Platform-Presentation.pptx`
+
 ## Deploy
 
-The site and the API are one Vercel project. `vercel.json` sends `/api` to the Express app and every other path to the Vite client, so the browser keeps calling `/api` on the same origin. Leave `VITE_API_URL` unset.
+The live site is https://playlist-sharing-platform.vercel.app. The site and the API are one Vercel project. `vercel.json` sends `/api` to the Express app and every other path to the Vite client, so the browser keeps calling `/api` on the same origin. Leave `VITE_API_URL` unset.
 
 Vercel cannot reach MongoDB on your laptop. Create a free MongoDB Atlas cluster, allow access from anywhere (`0.0.0.0/0`), and set these environment variables on the Vercel project:
 
