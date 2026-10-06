@@ -88,7 +88,7 @@ The live site is https://playlist-sharing-platform.vercel.app. The site and the 
 
 Vercel cannot reach MongoDB on your laptop. Create a free MongoDB Atlas cluster, allow access from anywhere (`0.0.0.0/0`), and set these environment variables on the Vercel project:
 
-- `MONGO_URI`: the Atlas connection string
+- `MONGO_URI`: the Atlas connection string, with the database name `playlist-platform` in the path. If that name is missing, MongoDB stores accounts in a database called `test` and the site cannot see them.
 - `JWT_SECRET`: a long random string
 - `JWT_EXPIRES_IN`: `7d`
 - `CLIENT_URL`: the Vercel site origin, with no trailing slash
